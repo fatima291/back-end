@@ -1,0 +1,133 @@
+
+# تمكين إعادة الكتابة
+RewriteEngine On
+
+# منع الوصول لقوائم المجلدات (مهم للأمان)
+Options -Indexes
+
+# إعدادات CORS للسماح للفرونت إند بالاتصال
+<IfModule mod_headers.c>
+    # السماح للفرونت إند من أي مصدر (لتطوير متعدد المصادر)
+    Header set Access-Control-Allow-Origin "*"
+    
+    # السماح بالطرق (Methods) التي يحتاجها مشروعك
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    
+    # السماح بالرؤوس (Headers) التي تحتاجها
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    
+    # السماح بإرسال الكوكيز (إذا كنت تستخدم الجلسات)
+    Header set Access-Control-Allow-Credentials "true"
+    
+
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# التعامل مع طلبات OPTIONS (لـ CORS preflight)
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# حماية الملفات الحساسة
+<FilesMatch "\.(env|log|ini|htaccess|sql|bak|config)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# إذا كان لديك ملف index.php في backend/
+RewriteCond %{REQUEST_URI} ^/backend/api/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ index.php?path=$1 [QSA,L]
+
+# أو إذا كان الباك إند في مجلد مستقل:
+RewriteRule ^backend/api/(.*)$ backend/index.php?path=$1 [QSA,L]
+
+# ضغط المخرجات لتحسين السرعة
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE font/opentype
+</IfModule>
+
+# إعدادات الكاش للتحميل السريع
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # الصور
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    
+    # CSS و JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+
+</IfModule>
+
+# حماية مجلدات معينة
+RedirectMatch 403 ^/backend/config/.*
+RedirectMatch 403 ^/\.git/.*
+RedirectMatch 403 ^/\.env.*
+
+# تعيين صفحة البداية
+DirectoryIndex index.html index.php
+
+# صفحات الخطأ المخصصة
+ErrorDocument 404 /frontend/404.html
+ErrorDocument 403 /frontend/403.html
+ErrorDocument 500 /frontend/500.html
+
+# منع الوصول لملفات النظام
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# منع الوصول للملفات المخفية
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# تعيين الترميز الافتراضي
+AddDefaultCharset UTF-8
+
+# منع عرض محتويات المجلدات بشكل كامل
+<IfModule mod_autoindex.c>
+    IndexIgnore *
+</IfModule>
+
+# منع hotlinking للصور
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yourdomain.com [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?localhost [NC]
+    RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [F,NC,L]
+</IfModule>
+
+# إذا كان هناك ملف php.ini محلي
+<IfModule mod_php.c>
+    # إعدادات التطوير (تعليقها في الإنتاج)
+    # php_flag display_errors on
+    # php_flag log_errors on
+    
+    # إعدادات الإنتاج (تفعيلها في السيرفر)
+    php_flag display_errors off
+    php_flag log_errors on
+    php_value error_log "logs/php_errors.log"
+    
+    # زيادة الذاكرة والوقت
+    php_value memory_limit 256M
+    php_value max_execution_time 300
+    
+    # إعدادات رفع الملفات
+    php_value upload_max_filesize 50M
+    php_value post_max_size 55M
+</IfModule>
