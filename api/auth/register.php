@@ -1,157 +1,135 @@
 <?php
+// backend/api/auth/register.php
 
-ini_set('display_errors', 0); // إخفاء الأخطاء عن المستخدمين
-ini_set('log_errors', 1); // تسجيل الأخطاء في ملف
-ini_set('error_log', __DIR__ . '/../../logs/php_errors.log');
+// تمكين معالجة CORS
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-// إعدادات الترميز 
-header('Content-Type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-
-// تمكين عرض الأخطاء أثناء التطوير فقط
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-
-// تضمين ملف الاتصال بقاعدة البيانات
-require_once __DIR__ . '/../../config/database.php';
-require_once __DIR__ . '/../../helpers/response.php';
-require_once __DIR__ . '/../../helpers/validation.php';
-
-// التعامل مع طلبات OPTIONS لـ CORS
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+// معالجة طلب OPTIONS (لـ CORS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// التحقق من أن الطلب هو POST
+// تأكد من أن الطلب POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    sendResponse(false, 'الطريقة غير مسموحة', null, 405);
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'الطريقة غير مسموحة']);
     exit();
 }
 
-// الحصول على البيانات من body الطلب
-$data = json_decode(file_get_contents('php://input'), true);
+// تحميل الملفات المطلوبة
+require_once __DIR__ . '/../../config/constants.php';
+require_once __DIR__ . '/../../helpers/Validation.php';
+require_once __DIR__ . '/../../helpers/Response.php';
+require_once __DIR__ . '/../../models/User.php';
 
-// التحقق من وجود البيانات الأساسية
-if (!isset($data['email']) || !isset($data['password']) || !isset($data['name'])) {
-    sendResponse(false, 'بيانات غير مكتملة. يرجى إدخال البريد الإلكتروني وكلمة المرور والاسم الكامل', null, 400);
-    exit();
+// استخدام Response للتعامل مع CORS
+Response::handleOptions();
+
+// الحصول على البيانات من الطلب
+$input = json_decode(file_get_contents('php://input'), true);
+
+// التحقق من وجود البيانات
+if (!$input || empty($input)) {
+    Response::error('لم يتم استقبال أي بيانات');
 }
 
-// تنظيف وتهيئة البيانات
-$email = trim($data['email']);
-$password = $data['password'];
-$name = trim($data['name']);
-$account_type = isset($data['account_type']) ? trim($data['account_type']) : 'student';
+// تنظيف البيانات
+$input = Validation::sanitize($input);
+
+// التحقق من الحقول المطلوبة
+$requiredFields = ['name', 'email', 'password', 'account_type'];
+$missingFields = [];
+
+foreach ($requiredFields as $field) {
+    if (empty($input[$field])) {
+        $missingFields[] = $field;
+    }
+}
+
+if (!empty($missingFields)) {
+    Response::error('الحقول التالية مطلوبة: ' . implode(', ', $missingFields));
+}
 
 // التحقق من صحة البيانات
+$errors = [];
 
-$validationErrors = [];
-
-$allowed_account_types = ['student', 'teacher', 'translator'];
-if (!in_array($account_type, $allowed_account_types)) {
-    $validationErrors['account_type'] = 'نوع الحساب غير صحيح';
+// التحقق من الاسم
+$nameValidation = Validation::validateName($input['name']);
+if (!$nameValidation['valid']) {
+    $errors['name'] = $nameValidation['message'];
+} else {
+    $name = $nameValidation['name'];
 }
 
 // التحقق من البريد الإلكتروني
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $validationErrors['email'] = 'البريد الإلكتروني غير صحيح';
+$emailValidation = Validation::validateEmail($input['email']);
+if (!$emailValidation['valid']) {
+    $errors['email'] = $emailValidation['message'];
+} else {
+    $email = $emailValidation['email'];
 }
 
-// التحقق من كلمة المرور (على الأقل 6 أحرف)
-if (strlen($password) < 6) {
-    $validationErrors['password'] = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+// التحقق من كلمة المرور
+$passwordValidation = Validation::validatePassword($input['password']);
+if (!$passwordValidation['valid']) {
+    $errors['password'] = $passwordValidation['message'];
+} else {
+    $password = $input['password'];
 }
 
-// التحقق من الاسم الكامل
-if (strlen($name) < 2) {
-    $validationErrors['name'] = 'الاسم الكامل يجب أن يكون حرفين على الأقل';
+// التحقق من نوع الحساب
+$typeValidation = Validation::validateAccountType($input['account_type']);
+if (!$typeValidation['valid']) {
+    $errors['account_type'] = $typeValidation['message'];
+} else {
+    $accountType = $typeValidation['type'];
 }
-
 
 // إذا كانت هناك أخطاء في التحقق
-if (!empty($validationErrors)) {
-    sendResponse(false, 'خطأ في التحقق من البيانات', ['errors' => $validationErrors], 400);
-    exit();
+if (!empty($errors)) {
+    Response::error('أخطاء في التحقق من البيانات', $errors);
 }
 
+// إنشاء المستخدم
 try {
-    // إنشاء اتصال بقاعدة البيانات
-    $database = new Database();
-    $conn = $database->getConnection();
+    $userModel = new User();
     
-    // التحقق من عدم وجود مستخدم بنفس البريد الإلكتروني
-    $checkQuery = "SELECT id FROM users WHERE email = :email";
-    $checkStmt = $conn->prepare($checkQuery);
-    $checkStmt->bindParam(':email', $email);
-    $checkStmt->execute();
-    
-    if ($checkStmt->rowCount() > 0) {
-        sendResponse(false, 'البريد الإلكتروني مسجل مسبقاً', null, 409);
-        exit();
+    // التحقق من عدم وجود البريد مسبقاً
+    if ($userModel->emailExists($email)) {
+        Response::error(ERROR_EMAIL_EXISTS);
     }
     
-    // تشفير كلمة المرور
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // إنشاء المستخدم
+    $userData = [
+        'name' => $name,
+        'email' => $email,
+        'password' => $password,
+        'account_type' => $accountType
+    ];
     
-    // إعداد الاستعلام لإدخال المستخدم الجديد
-    $query = "INSERT INTO users 
-          (email, password, name, account_type, created_at, updated_at) 
-          VALUES 
-          (:email, :password, :name, :account_type, NOW(), NOW())";
+    $user = $userModel->create($userData);
     
-    $stmt = $conn->prepare($query);
-    
-    // ربط القيم
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':password', $hashedPassword);
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':account_type', $account_type);
-    
-    // تنفيذ الاستعلام
-    if ($stmt->execute()) {
-        // الحصول على ID المستخدم الجديد
-        $userId = $conn->lastInsertId();
-        
-        // جلب بيانات المستخدم (بدون كلمة المرور)
-        $userQuery = "SELECT id, email, name, account_type, created_at FROM users WHERE id = :id";
-        $userStmt = $conn->prepare($userQuery);
-        $userStmt->bindParam(':id', $userId);
-        $userStmt->execute();
-        
-        $user = $userStmt->fetch(PDO::FETCH_ASSOC);
-
-        // التأكد من ترميز UTF-8
-        if ($user && is_array($user)) {
-            array_walk_recursive($user, function(&$value) {
-                if (is_string($value)) {
-                    $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-                }
-            });
-        }
-        // إرجاع الاستجابة الناجحة
-        sendResponse(true, 'تم إنشاء الحساب بنجاح', [
-            'user' => $user,
-            'message' => 'مرحباً ' . $name . '! تم إنشاء حسابك بنجاح.'
-        ], 201);
-        
+    if ($user) {
+        // نجاح التسجيل
+        Response::success('تم التسجيل بنجاح!', [
+            'user' => [
+                'id' => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'account_type' => $user['account_type']
+            ],
+            'redirect' => '../login.html' // سيتم التوجيه للدخول
+        ]);
     } else {
-        sendResponse(false, 'فشل في إنشاء الحساب', null, 500);
+        Response::error(ERROR_SERVER);
     }
     
-} catch (PDOException $e) {
-    // تسجيل الخطأ (في ملف log في البيئة الحقيقية)
-    error_log("Register Error: " . $e->getMessage());
-    
-    sendResponse(false, 'حدث خطأ في الخادم', null, 500);
-    
-} finally {
-    // إغلاق الاتصال
-    if (isset($conn)) {
-        $database->closeConnection();
-    }
+} catch (Exception $e) {
+    // تسجيل الخطأ للتصحيح
+    error_log("خطأ في تسجيل المستخدم: " . $e->getMessage());
+    Response::error('حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى');
 }
 ?>
