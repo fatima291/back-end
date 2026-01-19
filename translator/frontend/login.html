@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- CSS مخصص للصفحة -->
+    <style>
+        body {
+            background: linear-gradient(to right, #E2F5FF, #CDE7FF);
+            font-family: 'Javanese Text', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .login-section {
+            margin-top: 60px;
+        }
+        .login-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+        .login-title {
+            color: #981919;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 36px;
+            line-height: 100%;
+        }
+        .btn-primary {
+            background-color: #3F4BB6;
+            border-color: #3F4BB6;
+            transition: 0.3s;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+        .btn-primary:hover {
+            background-color: #2a3591;
+            transform: translateY(-2px);
+        }
+        .alert {
+            border-radius: 5px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+        .form-control.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+        .spinner-border {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.15em;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+        .login-links a {
+            color: #3F4BB6;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+        .logo-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo-img {
+            max-height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل (مثل باقي الصفحات) -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link text-dark" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="Courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="Teachers.html">Teacher</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="register.html">Register</a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container login-section">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <!-- رابط الشعار -->
+                <a href="index.html" class="logo-link">
+                    <img src="imge/photo_2025-12-16_21-26-34.jpg" alt="Logo" class="logo-img">
+                </a>
+                
+                <!-- بطاقة الدخول -->
+                <div class="login-card">
+                    <h2 class="login-title">Login</h2>
+                    
+                    <!-- رسائل التنبيه -->
+                    <div class="alert alert-success" id="successAlert" role="alert"></div>
+                    <div class="alert alert-danger" id="errorAlert" role="alert"></div>
+                    
+                    <!-- نموذج الدخول -->
+                    <form id="loginForm">
+                        <!-- حقل البريد الإلكتروني -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" id="email" 
+                                       placeholder="Enter your email" required>
+                            </div>
+                            <div class="invalid-feedback" id="emailError">
+                                Please enter a valid email address
+                            </div>
+                        </div>
+                        
+                        <!-- حقل كلمة المرور -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" class="form-control" id="password" 
+                                       placeholder="Enter your password" required>
+                            </div>
+                            <div class="invalid-feedback" id="passwordError">
+                                Password must be at least 6 characters
+                            </div>
+                        </div>
+                        
+                        <!-- خيارات إضافية -->
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="forget_pass.html" class="text-decoration-none small">
+                                Forgot password?
+                            </a>
+                        </div>
+                        
+                        <!-- زر الدخول -->
+                        <button type="submit" class="btn btn-primary w-100" id="loginButton">
+                            <span id="loginText">Login</span>
+                            <span id="loginLoading" style="display: none;">
+                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                Logging in...
+                            </span>
+                        </button>
+                    </form>
+                    
+                    <!-- روابط إضافية -->
+                    <div class="login-links">
+                        <p class="mb-2">Don't have an account? 
+                            <a href="register.html">Register here</a>
+                        </p>
+                        <p class="mb-0">
+                            <a href="index.html">← Back to Home</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

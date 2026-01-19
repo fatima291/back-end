@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Password</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+<!--The code styles an HTML page to center a card on the screen with a light background and clean layout.
+It also customizes text, input fields, and a reset button with specific colors and hover effects.-->
+
+    <style>
+        body {
+            background-color: #F4FBFF;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-box {
+            width: 400px;
+            text-align: center;
+        }
+
+        .card-box h3 {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .card-box p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .input-group-text {
+            background-color: #fff;
+            border-right: 1px solid #000;
+        }
+
+        .form-control {
+            border-left: none;
+        }
+
+        .form-control::placeholder {
+            color: #2C7BC9;
+        }
+
+        .btn-reset {
+            background-color: #2f78c4;
+            color: #fff;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
+        .btn-reset:hover {
+            background-color: #2563a6;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<!--The code creates a reset password form with fields for entering and confirming a new password,
+ a reset button, and a link to go back to the login page.-->
+<div class="card-box">
+
+    <h3>Create New Password</h3>
+    <p>Please enter your new password</p>
+
+    <!-- New Password -->
+    <div class="mb-3 text-start">
+        <label class="mb-1">New Password</label>
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-lock-fill"></i>
+            </span>
+            <input type="password" class="form-control" placeholder="New Password">
+        </div>
+    </div>
+
+    <div class="mb-3 text-start">
+        <label class="mb-1">Confirm Password</label>
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-lock-fill"></i>
+            </span>
+            <input type="password" class="form-control" placeholder="Confirm Password">
+        </div>
+    </div>
+
+    <button class="btn btn-reset w-100">Reset Password</button>
+
+    <a href="login.html" class="back-link">Back to Login</a>
+
+</div>
+
+</body>
+</html>

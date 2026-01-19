@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Courses</title>
+
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-icons.css" rel="stylesheet">
+<!--
+It defines button, title, and link styles to create a organized course display layout.-->
+
+    <style>
+            .course-card {
+    border: 1px solid #bfcde2;
+    padding: 20px;
+    border-radius: 6px;
+    background: white;
+    text-align: center;
+    height: 260px;      
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.course-card img {
+    display: block;
+    margin: 0 auto;   
+} 
+
+        body {
+            background-color: #E2F5FF;
+        }
+        .course-card {
+            border: 1px solid #bfcde2;
+            padding: 20px;
+            border-radius: 6px;
+            background: white;
+            text-align: center;
+        }
+        .course-card img, .course-card i {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        .enroll-btn {
+            background-color: #d4e3f8;
+            border: none;
+            padding: 10px 20px;
+        }
+        .title {
+            font-size: 26px;
+            margin: 30px 0;
+            color: #214c8a;
+        }
+        .signup-link {
+            float: right;
+            margin: 10px 20px 0 0;
+            font-size: 14px;
+        }
+    .logo-link {
+      position: absolute;
+      top: 10px;
+      right:10px;
+    }
+
+    .logo-img {
+      width: 35px;
+      height: auto;
+      cursor: pointer;
+    }
+    </style>
+</head>
+<!--The code displays an **Available Courses** section with four course cards (English Grammar, Intermediate, IELTS Preparation, Translation Skills).  
+Each card shows an image, title, details (level/duration), and an **Enroll Now** button for registration.-->
+<body>
+
+    <a href="login.html" class="signup-link">🔍 Sign Up</a>
+
+    <div class="container">
+        <h3 class="title">Availble Courses</h3>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3">
+                <div class="course-card">
+                    <img src="imge/b1d7d9b768318fa62810b4027eab1a10af1e9950.png" alt="course image" class="img-fluid" style="width:70px;">
+                    <h5>English Grammar</h5>
+                    <p>Level: Beginner<br>6 Weeks</p>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="course-card">
+                    <img src="imge/8c6798ffd141c1e67b4549d3e8624882c9394cef.png " alt="Intermediate image" class="img-fluid" style="width:70px;">
+                    <h5>Intermediate</h5>
+                    <p>6 Weeks</p>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="course-card">
+                  <img src="imge/72dff51bcaa8c71db837e2d25937dfa018d86dda.png" alt="course-card"class="image-fluid"style="width:70px;">
+                    <h5>IELTS Preparation</h5>
+                    <p>Advanced<br>6 Weeks</p>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="course-card">
+                <img src="imge/12d3d9af07acbe508e1c810ad6f65d3a2c896603.png" alt="course-card" class="image-fluid"style="width: 70px;">
+                <h5>Translation Skills</h5>
+                <p>Advanced<br>6 Weeks</p>
+                <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container-box">
+    <a href="index.html" class="logo-link">
+      <img src="imge/photo_2025-12-16_21-26-34.jpg" alt="Logo" class="logo-img">
+    </a>
+</body>
+</html>

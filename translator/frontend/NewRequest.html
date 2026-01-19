@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Request - Replica</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <!--The code defines a form layout style with a white card on a blue background.  
+It customizes titles, labels, input fields, and a send button that -->
+
+  <style>
+    :root{
+      --page-bg: #F4FBFF;
+      --card-bg: #ffffff;
+      --title-red: #981919;
+      --label-blue: #3F4BB6;
+      --muted-gray: #948E8E;
+      --field-border: #dfe9e7;
+      --hover-blue: #3F4BB6;
+    }
+
+    body {
+      background: var(--page-bg);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #3f1c1c;
+      padding: 50px 0;
+    }
+
+    .layout-wrap{
+      max-width: 520px;
+      margin: 18px auto;
+      padding: 18px;
+    }
+
+    .card-mock {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 26px 28px;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .form-title {
+      text-align: center;
+      color: var(--title-red);
+      font-weight: 800;
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    .section-label{
+      color: var(--label-blue);
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 8px;
+      display:block;
+    }
+
+    .form-control {
+      border: 1px solid var(--field-border);
+      border-radius: 4px;
+      height: 42px;
+      padding: .5rem .6rem;
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+      padding: 10px;
+    }
+
+    .btn-send {
+      background: var(--muted-gray);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 4px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-send:hover{
+      background: var(--hover-blue);
+    }
+
+    .form-footer {
+      display:flex;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+    .logo-link {
+      position: absolute;
+      top: 10px;
+      right:10px;
+    }
+
+    .logo-img {
+      width: 35px;
+      height: auto;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<!--This code builds a form card titled New Request where users can choose request type,
+ upload a file or enter text, select a language, and set a deadline.-->
+
+<body>
+
+  <div class="layout-wrap">
+    <div class="card-mock">
+
+      <div class="form-title">New Request</div>
+
+      <!-- Request Type -->
+      <label class="section-label">Request Type</label>
+      <div class="radio-inline mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reqType" id="radioTranslation" checked>
+          <label class="form-check-label" for="radioTranslation">
+            <i class="bi bi-translate"></i> Translation
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reqType" id="radioTeaching">
+          <label class="form-check-label" for="radioTeaching">
+            <i class="bi bi-book"></i> Teaching
+          </label>
+        </div>
+      </div>
+
+     
+      <label class="section-label">Upload File</label>
+      <input type="file" class="form-control mb-3" accept=".txt,.doc,.docx,.pdf" />
+
+     
+      <label class="section-label">Or Enter Text</label>
+      <textarea class="form-control" placeholder="Enter text ..."></textarea>
+
+
+      <label class="section-label mt-3">Language or Subject</label>
+      <select class="form-select select-small" aria-label="language">
+        <option selected>Choose...</option>
+        <option value="1">English</option>
+        <option value="2">Arabic</option>
+        <option value="3">Turkish</option>
+      </select>
+
+  
+      <label class="section-label mt-3">Deadline</label>
+      <div class="date-wrapper">
+        <input type="date" class="form-control" />
+        <i class="bi bi-calendar"></i>
+      </div>
+
+
+      <div class="form-footer">
+        <button type="button" class="btn btn-send">
+          <i class="bi bi-send-fill"></i> Send
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-box">
+    <a href="index.html" class="logo-link">
+      <img src="imge/photo_2025-12-16_21-26-34.jpg" alt="Logo" class="logo-img">
+    </a>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+<!--This CSS designs a registration form with a soft gradient background and a white card layout.-->
+  <style>
+    body {
+      background: linear-gradient(to right, #E2F5FF, #CDE7FF);
+      font-family: 'Javanese Text', sans-serif;
+    }
+    .register-section {
+      margin-top: 60px;
+    }
+    .register-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      animation: fadeInUp 1s ease-in-out;
+    }
+    .register-title {
+      color: #981919;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 36px;
+      line-height: 100%;
+    }
+    .account-type-label {
+      color: #3F4BB6;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .btn-primary {
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #3F4BB6;
+      transform: scale(1.05);
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+  </style>
+  <!--Thie with a navigation bar and a registration form.  
+It includes fields for name, email, password, account type selection, and an image illustration beside the form-->
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link text-dark" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Courses</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Teacher</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container register-section">
+    <div class="row align-items-center">
+      <!-- Form Section -->
+      <div class="col-md-6">
+        <div class="register-card">
+          <h2 class="register-title">Register</h2>
+          <form>
+            <!-- Name -->
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" id="name" placeholder="Enter name">
+            </div>
+
+            <!-- Email -->
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" id="email" placeholder="Enter Email">
+            </div>
+
+            <!-- Password -->
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input type="password" class="form-control" id="password" placeholder="Enter Password">
+            </div>
+
+            <!-- Account Type -->
+            <div class="account-type-label">Account Type</div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="accountType" id="student" value="student">
+              <label class="form-check-label" for="student">Student</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="accountType" id="teacher" value="teacher">
+              <label class="form-check-label" for="teacher">Teacher</label>
+            </div>
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="radio" name="accountType" id="translator" value="translator">
+              <label class="form-check-label" for="translator">Translator</label>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary w-50">Register</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Illustration Section -->
+      <div class="col-md-6 text-center">
+        <img src="imge/photo_2025-09-13_20-12-03.jpg" alt="Platform Image" class="img-fluid rounded-circle" style="width: 535px; height: 534px;">
+      </div>
+    </div>
+  </div>
+  <div class="container-box">
+    <a href="index.html" class="logo-link">
+      <img src="imge/photo_2025-12-16_21-26-34.jpg" alt="Logo" class="logo-img">
+    </a>
+    <script src="js/register.js"></script>
+</body>
+
+</html>

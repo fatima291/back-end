@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forgot Password</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #E2F5FF, #CDE7FF);
+            font-family: 'Javanese Text', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .forgot-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .forgot-title {
+            color: #981919;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .alert {
+            display: none;
+        }
+        .code-display {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin: 15px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="forgot-card">
+            <h2 class="forgot-title">
+                <i class="bi bi-key"></i> Forgot Password
+            </h2>
+            
+            <!-- خطوات العملية -->
+            <div class="steps mb-4">
+                <div class="d-flex justify-content-between">
+                    <div class="step active">1. Enter Email</div>
+                    <div class="step">2. Enter Code</div>
+                    <div class="step">3. New Password</div>
+                </div>
+                <div class="progress" style="height: 5px;">
+                    <div class="progress-bar" style="width: 33%"></div>
+                </div>
+            </div>
+            
+            <!-- رسائل -->
+            <div class="alert alert-success" id="successAlert"></div>
+            <div class="alert alert-danger" id="errorAlert"></div>
+            
+            <!-- عرض الكود (للتنمية فقط) -->
+            <div class="code-display" id="codeDisplay">
+                Your Code: <span id="resetCode"></span>
+            </div>
+            
+            <!-- النموذج -->
+            <form id="forgotForm">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" 
+                               placeholder="Enter your registered email" required>
+                    </div>
+                    <div class="invalid-feedback" id="emailError"></div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100" id="submitBtn">
+                    <span id="btnText">Send Reset Code</span>
+                    <span id="btnLoading" style="display: none;">
+                        <span class="spinner-border spinner-border-sm"></span> Sending...
+                    </span>
+                </button>
+            </form>
+            
+            <div class="text-center mt-3">
+                <a href="login.html" class="text-decoration-none">
+                    <i class="bi bi-arrow-left"></i> Back to Login
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/forgot_password.js"></script>
+</body>
+</html>

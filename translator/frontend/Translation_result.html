@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Translation Result</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #E2F5FF;
+            font-family: "Times New Roman", serif;
+        }
+        .title {
+            color: #981919;
+            font-weight: normal;
+        }
+
+        .result-box {
+            background-color: #f9f8e6;
+            border: 2px solid #5f5f5f;
+            width: 420px;
+            padding: 20px;
+        }
+
+        .section-title {
+            color: #2a4bd7;
+            font-weight: normal;
+        }
+
+        .text-line {
+            height: 18px;
+            background-color: #ddd;
+            margin-bottom: 12px;
+        }
+
+        .info {
+            margin: 5px 0;
+        }
+
+        .custom-btn {
+            background-color: #c5cff7;
+            border: 2px solid #5f5f5f;
+            color: #000;
+            padding: 8px 25px;
+            font-size: 16px;
+        }
+
+        .custom-btn:hover {
+            background-color: #b2bef5;
+        }
+        .wide-btn {
+            width: 260px;
+        }
+        .logo-link {
+      position: absolute;
+      top: 10px;
+      right:10px;
+    }
+
+    .logo-img {
+      width: 35px;
+      height: auto;
+      cursor: pointer;
+    }
+    
+  </style>
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2 class="text-center title">translation Result</h2>
+
+    <div class="result-box mx-auto mt-3">
+
+        <h4 class="section-title">Original Text</h4>
+        <div class="text-line"></div>
+        <div class="text-line w-75"></div>
+        <div class="text-line w-50"></div>
+
+        <h4 class="section-title mt-4">Translated Text</h4>
+        <div class="text-line"></div>
+        <div class="text-line w-75"></div>
+        <div class="text-line w-50"></div>
+
+        <h4 class="section-title mt-4">Translator</h4>
+        <p class="info">Name</p>
+        <p class="info">Language</p>
+        <p class="info">Time of completion</p>
+
+        <div class="d-flex justify-content-center gap-4 mt-4">
+            <button class="btn custom-btn">Download</button>
+            <button class="btn custom-btn">Feedback</button>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn custom-btn wide-btn">Contact Translator</button>
+        </div>
+
+    </div>
+</div>
+<div class="container-box">
+    <a href="index.html" class="logo-link">
+      <img src="imge/photo_2025-12-16_21-26-34.jpg" alt="Logo" class="logo-img">
+    </a>
+
+</body>
+</html>

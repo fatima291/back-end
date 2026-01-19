@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-icons.css" rel="stylesheet">
+<!--The code styles a webpage with a in light blue containing icons and links, alongside a **main content area**.  
+It also formats tables, buttons, and text with specific colors and fonts to create a clean, organized interface.-->
+    <style>
+        body {
+            background-color: #f9fbfd;
+            font-family: 'Times New Roman', serif; 
+        }
+        .sidebar {
+            background-color: #E2F5FF; 
+            height: 100vh;
+            padding: 20px 10px;
+            width: 250px; 
+            float: left;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar-content {
+            padding: 0 10px;
+        }
+
+        .sidebar h4 {
+            color: #981919;
+            text-align: left; 
+            margin-top: 5px; 
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: normal;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .settings-icon {
+            font-size: 1.8rem;
+            color: #981919;
+            vertical-align: top;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #000;
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-icon-container {
+            width: 20px; 
+            text-align: center;
+            margin-right: 15px; 
+        }
+
+        .sidebar-icon {
+            font-size: 1.3rem; 
+        }
+
+        
+        .main-content {
+            margin-left: 250px; 
+            padding: 25px;
+            width: calc(100% - 250px);
+        }
+        .user-icon-top {
+            font-size: 1.8rem;
+            color: #000;
+            float: right;
+        }
+
+        h5 {
+            color: #3b0df0; 
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #d6d6d6; 
+        }
+
+        .content-table th, .content-table td {
+            text-align: center;
+            padding: 8px;
+            border-left: 1px solid #d6d6d6; 
+            border-right: 1px solid #d6d6d6; 
+            border-bottom: 1px solid #d6d6d6; 
+        }
+
+        .content-table thead th {
+            background-color: #d6d6d6;
+            font-weight: normal;
+            border-top: 1px solid #d6d6d6; 
+        }
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #000;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0 5px;
+        }
+
+        #language-management-table {
+            border: none;
+            margin-top: 15px;
+            width: 50%; 
+        }
+        
+        #language-management-table td {
+            width: 50%; 
+            text-align: left;
+            padding: 5px 10px;
+            border: none; 
+            font-size: 1.1rem;
+        }
+        
+        
+        .add-lang-btn {
+            background-color: #f3f3f3;
+            border: 1px solid #aaa;
+            padding: 6px 12px;
+            border-radius: 4px;
+            float: right;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<!--The code creates an **Admin Dashboard** with a sidebar for navigation (Users, Requests, Languages).  
+In the main content, it shows tables to manage users, review requests, and handle languages with action buttons.-->
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="mb-4 d-flex align-items-center">
+                <i class="bi bi-tools settings-icon"></i> 
+                <h4>Admin Dashboard</h4>
+            </div>
+            <a href="#">
+                <span class="sidebar-icon-container">
+                    <i class="bi bi-person sidebar-icon"></i> 
+                </span>
+                Users
+            </a>
+            <a href="#">
+                <span class="sidebar-icon-container">
+                    <i class="bi bi-file-text sidebar-icon"></i>
+                </span>
+                Requests
+            </a>
+            <a href="#">
+                <span class="sidebar-icon-container">
+                    <i class="bi bi-globe sidebar-icon"></i>
+                </span>
+                Languages
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <i class="bi bi-person-fill user-icon-top"></i>
+        <div class="clearfix"></div> <h5 class="mt-5">User Management</h5>
+        <table class="content-table mb-4">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Student</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="icon-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                        <button class="icon-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Translator</td>
+                    <td>prohibited</td>
+                    <td>
+                        <button class="icon-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                        <button class="icon-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Teacher</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="icon-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                        <button class="icon-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h5>Request Review</h5>
+        <table class="content-table mb-4">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Translation</td>
+                    <td>
+                        <button class="icon-btn" title="View"><i class="bi bi-search"></i></button>
+                        <button class="icon-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Teaching</td>
+                    <td>
+                        <button class="icon-btn" title="View"><i class="bi bi-search"></i></button>
+                        <button class="icon-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h5>Language Management</h5>
+        <button class="add-lang-btn">+ Add Language</button>
+        <div class="clearfix"></div> <table id="language-management-table">
+            <tbody>
+                <tr>
+                    <td>Arabic</td>
+                    <td>English</td>
+                </tr>
+                <tr>
+                    <td>Turkish</td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <div class="d-flex justify-content-end mb-3">
+  <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+  <a href="register.html" class="btn btn-primary">Register</a>
+</div>
+<hr style="border: 1px solid #000000;">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <!--This CSS styles a **sidebar layout** with navigation links and request boxes, giving them borders, hover effects, and spacing.  
+It also defines titles and buttons with specific colors, sizes, and intera-->
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #E2F5FF;
+    }
+    .sidebar {
+      border-right:3px solid #000000;
+      min-height:100vh;
+      padding-top: 50px;
+      text-align: center;
+      background-color: #E2F5FF;
+      
+    }
+    .sidebar i {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    .sidebar .nav-link {
+      color: black;
+      margin-bottom: 30px;
+      display: block;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    .sidebar .nav-link:hover {
+      color: #348f11;
+    }
+    .request-box {
+      border: 1px solid #000000 ;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: left;
+      font-weight: 500;
+      margin-bottom: 20px;
+      background-color: #E2F5FF;
+      width: 425px;
+      height: 69px;
+      
+    
+    }
+    .request-box:hover {
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    .title {
+      color: #981919;
+      width: 556px;
+      height: 86px;
+      
+    
+    }
+    .add-request {
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      width: 510px;
+      height: 66px;
+      top: 206px;
+      color:#2B20FF;
+    }
+    .add-request:hover {
+      background-color:#dbe8ff ;
+    }
+
+    .user-navbar {
+    font-size: 0.9rem;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    }
+
+    .user-info {
+        font-weight: 500;
+    }
+
+    .logout-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+    }
+    
+  </style>
+</head>
+ <!--This code builds a student dashboard layout using Bootstrap.  
+It has a sidebar with icons for navigation (My Requests, Search, Messages) and a main content area showing the dashboard title,
+ a link to add new requests, and request status boxes (In Progress, Completed, Rejected).-->
+<body>
+ <!-- شريط المستخدم العلوي -->
+<div class="user-navbar bg-light border-bottom py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="user-info">
+            <i class="bi bi-person-circle me-2"></i>
+            <span id="userName">User</span>
+            <small class="text-muted ms-2" id="userType">(Type)</small>
+        </div>
+        <div class="user-actions">
+            <button class="btn btn-sm btn-outline-danger logout-btn">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+   
+    <div class="col-md-2 sidebar">
+      <nav class="nav flex-column align-items-center">
+        <a href="#" class="nav-link">
+         <a href="#" class="nav-link">
+  <img src="imge/man.png" alt="My Requests" style="width: 82px; height: 82px; border-radius: 50%; left: 92px;"><br>My<br>Requests
+
+        </a>
+        <a href="#" class="nav-link">
+          <img src="imge/photo_2025-09-13_20-12-32.jpg" alt="Search"style="width: 82px; height:82px; border-radius: 50%; left: 92px;"><br>Search
+        </a>
+        <a href="#" class="nav-link">
+          <img src="imge/photo_2025-09-13_20-12-55.jpg" alt="Messages" style="width: 82px; height:82px; border-radius: 50%; left: 92px;"><br>Messages
+        </a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-10 p-4">
+      <h4 class="title text-center">Student Dashboard</h4>
+      <div class="text-start mb-4">
+        <a href="NewRequest.html" class="add-request">Add New Request</a>
+      </div>
+
+      <h5>Requests</h5>
+      <div class="d-flex flex-column align-items-start">
+        <div class="request-box">In Progress</div>
+        <div class="request-box">Completed</div>
+        <div class="request-box">Rejected</div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+</body>
+</html>

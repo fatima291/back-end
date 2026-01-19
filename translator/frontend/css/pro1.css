@@ -1,0 +1,61 @@
+
+
+.how-it-workk{
+    font-family:Javanese Text;
+    font-weight: 400;
+   font-style: Regular;
+  font-size: 36px;
+   line-height: 100%;
+    letter-spacing: 0%;
+color:#981919;
+    }
+.tutors{
+ font-family: Abhaya Libre;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 40px;
+    line-height: 100%;
+letter-spacing: 0%;
+color:#981919;
+    }
+    /* ✨ حركة على الصور */
+img {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+img:hover {
+  transform: scale(1.05); /* تكبير بسيط */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* ظل ناعم */
+}
+
+/* ✨ حركة على الأزرار */
+.btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0d6efd; /* لون جديد */
+  transform: translateY(-3px); /* يرتفع شوي لفوق */
+}
+
+/* ✨ حركة دخول النصوص */
+h1, p {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ✨ حركة على عناصر الـ Steps */
+.col-md-3 {
+  transition: transform 0.4s ease;
+}
+.col-md-3:hover {
+  transform: scale(1.1);
+}
